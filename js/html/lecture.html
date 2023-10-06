@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecture</title>
+</head>
+
+<body>
+  <div>
+    <button id="buttonA">ButtonA</button>
+    <span id="a"></span>
+  </div>
+  <div>
+    <button id="buttonB">ButtonB</button>
+    <span id="b"></span>
+  </div>
+
+  <script>
+    let cnt = 0;
+    window.addEventListener('load', (event) => {
+      const spanA = document.getElementById('a');
+      const spanB = document.getElementById('b');
+
+      document.getElementById('buttonA').addEventListener('click', function (event) {
+        cnt++;
+        // console.log(event.target, cnt);
+        // this.textContent = `ButtonA ${cnt}`;
+        spanA.innerText = cnt;
+      });
+
+      document.getElementById('buttonB').addEventListener('click', (event) => {
+        cnt++;
+        // console.log(event.target, cnt);
+        // event.currentTarget.textContent = `ButtonB ${cnt}`;
+        spanB.innerText = cnt;
+      });
+
+      console.log('Window Loaded!'); // (다)
+    });
+
+  </script>
+</body>
+
+</html>
