@@ -9,32 +9,45 @@
 
 <body>
   <div>
-    <button id="buttonA">ButtonA</button>
-    <span id="a"></span>
+    <button id="buttonA">국어수업</button>
+    <span id="a">요일을 선택하세요!</span>
   </div>
   <div>
-    <button id="buttonB">ButtonB</button>
-    <span id="b"></span>
+    <button id="buttonB">수학수업</button>
+    <span id="b">요일을 선택하세요!</span>
   </div>
 
   <script>
-    let cnt = 0;
+    const weeks = ['일', '월', '화', '수', '목', '금', '토'];
+    const getNextWeek = function () {
+      let widx = -1;
+      return function () {
+        widx += 1;
+        if (widx >= weeks.length) widx = 0;
+        return `${weeks[widx]}요일`;
+      };
+    };
+
+    const getNextWeekKorean = getNextWeek();
+    const getNextWeekMath = getNextWeek();
+
+    // let cnt = 0;
     window.addEventListener('load', (event) => {
       const spanA = document.getElementById('a');
       const spanB = document.getElementById('b');
 
       document.getElementById('buttonA').addEventListener('click', function (event) {
-        cnt++;
+        // cnt++;
         // console.log(event.target, cnt);
         // this.textContent = `ButtonA ${cnt}`;
-        spanA.innerText = cnt;
+        spanA.innerText = getNextWeekKorean();
       });
 
       document.getElementById('buttonB').addEventListener('click', (event) => {
-        cnt++;
+        // cnt++;
         // console.log(event.target, cnt);
         // event.currentTarget.textContent = `ButtonB ${cnt}`;
-        spanB.innerText = cnt;
+        spanB.innerText = getNextWeekMath();
       });
 
       console.log('Window Loaded!'); // (다)
