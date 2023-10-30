@@ -22,12 +22,46 @@ class Collection {
     this.#arr.length = 0;
   }
 
-  print() {
-    // console.table(this.#arr);
-    console.log(JSON.stringify(this.#arr, null, 2));
+  remove() {
+    this.#arr.pop();
   }
 
-  // [Symbol.iterator]() {}
+  get peek() {
+    return this.#arr.at(-1);
+  }
+
+  get poll() {
+    if (this.#isQueue()) {
+      return this.dequeue();
+      // } else if (this.pop) {
+      //   return this.pop();
+    } else {
+      return this.#arr.pop();
+    }
+  }
+
+  get isEmpty() {
+    return !this.length;
+  }
+  get length() {
+    return this.#arr?.length ?? 0;
+  }
+
+  print(flag) {
+    // console.table(this.#arr);
+    // console.log(JSON.stringify(this.#arr, null, 2));
+    console.log(
+      `${flag ?? this.constructor.name}=${JSON.stringify(this.#arr)}`
+    );
+  }
+
+  #isQueue() {
+    return this.constructor.name === 'Queue';
+  }
+
+  [Symbol.iterator]() {
+    return this.#arr.values();
+  }
 }
 
 class Stack extends Collection {
@@ -44,11 +78,6 @@ class Stack extends Collection {
   }
 }
 
-const stack = new Stack(); // or new Stack([1,2]); // (1,2)
-stack.push(3); // 추가하기
-console.log('stack=', stack.toArray()); // 마지막에 추가된 하나 꺼내기
-assert.deepStrictEqual(stack.toArray(), [3]);
-
 class Queue extends Collection {
   #arr;
   constructor(...args) {
@@ -63,10 +92,26 @@ class Queue extends Collection {
     return this._arr.shift();
   }
 }
+const stack = new Stack(); // or new Stack([1,2]); // (1,2)
+stack.push(3); // 추가하기
+assert.deepStrictEqual(stack.toArray(), [3]);
+stack.push(5); // 추가하기
+stack.push(7); // 추가하기
+stack.print();
+stack.clear();
+console.log('poll_stack=', stack.poll, stack.isEmpty, stack.length);
+
+const coll = new Collection([3, 5, 7]);
+console.log('poll_coll=', coll.poll);
+
 const queue = new Queue();
 queue.enqueue(3); // 추가하기
 queue.print();
 assert.deepStrictEqual(queue.toArray(), [3]);
+queue.enqueue(5);
+queue.enqueue(7);
+queue.print();
+console.log('poll_queue=', queue.poll);
 
 const queue2 = new Queue([1, 2]);
 queue2.enqueue(3); // 추가하기
@@ -85,4 +130,4 @@ queue3.print();
 queue3.clear();
 assert.deepStrictEqual(queue3.toArray(), []);
 
-console.log([...queue3]);
+console.log('queue==', [...queue]);
