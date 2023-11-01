@@ -8,6 +8,9 @@ class Dog {
 
 const lucy = new Dog('Lucy');
 
+const arr = [1, 2, 3];
+const hong = { id: 1, name: 'Hong' };
+
 const kim = {
   nid: 3,
   addr: 'Pusan',
@@ -28,12 +31,32 @@ const kim = {
   nobj: new Number(123),
   bobj: new Boolean(true),
   [Symbol()]: Object(Symbol('symbol3')),
+  zs: new Set([arr, hong]),
+  zws: new WeakSet([arr, hong]),
+  zm: new Map([[hong, arr]]),
+  zwm: new WeakMap([[hong, arr]]),
 };
 
 const deepCopy = obj => {
-  if (obj === null || typeof obj !== 'object') return obj;
+  if (
+    obj === null ||
+    typeof obj !== 'object' ||
+    obj instanceof WeakMap ||
+    obj instanceof WeakSet
+  )
+    return obj;
+
   const value = obj.valueOf();
   if (obj.constructor.name === 'Symbol') return Object(value);
+
+  if (obj instanceof Map) {
+    return new Map(
+      [...obj.entries()].map(([k, v]) => [deepCopy(k), deepCopy(v)])
+    );
+  } else if (obj instanceof Set) {
+    return new Set([...obj].map(a => deepCopy(a)));
+  }
+
   const copiedObj = new obj.constructor(typeof value !== 'object' ? value : {});
   for (const k of Reflect.ownKeys(obj)) {
     copiedObj[k] = deepCopy(obj[k]);
@@ -48,7 +71,16 @@ const deepCopy = obj => {
 // return;
 
 const newKim = deepCopy(kim);
-
+console.log('----------------');
+kim.zs.keys().next().value[0] = 9;
+console.log(kim.zs);
+console.log(newKim.zs);
+console.log('----------------');
+kim.zm.values().next().value[0] = 9;
+console.log(kim.zm);
+console.log(newKim.zm);
+console.log('----------------');
+return;
 assert.deepStrictEqual(newKim, kim, 'deepCopy equal fail!');
 newKim.addr = 'Daegu';
 console.log('kim.yy=', kim.yy(100));

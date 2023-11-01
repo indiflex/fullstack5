@@ -67,3 +67,5 @@ assert.deepStrictEqual(users.lastObject, { id: 3, name: 'Lee' });
 users.firstObject = choi;
 users.lastObject = choi;
 console.log('🚀  users:', users, users.firstObject);
+
+console.log('==============================');

@@ -10,6 +10,7 @@ const keyPairBigO_NSquare = (arr, n) => {
 const keyPair = (arr, n) => {
   // {yourValue: pair-idx}
   const yourValueVsPairIdx = {}; // {6:0, 4:1}
+
   for (let i = 0; i < arr.length; i += 1) {
     const yourValue = arr[i];
     const pairIdx = yourValueVsPairIdx[yourValue];
