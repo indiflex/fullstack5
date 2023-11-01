@@ -58,18 +58,34 @@ class Subway {
     this.#end = end;
   }
 
-  [Symbol.iterator]() {
-    return {
-      next: () => {
-        if (this.#isEnd) return { done: true };
+  // [Symbol.iterator]() {
+  //   return {
+  //     next: () => {
+  //       if (this.#isEnd) return { done: true };
 
-        if (this.#currIdx === LINE2.length) this.#currIdx = 0;
-        const value = LINE2[this.#currIdx++];
-        this.#isEnd = value === this.#end;
+  //       if (this.#currIdx === LINE2.length) this.#currIdx = 0;
+  //       const value = LINE2[this.#currIdx++];
+  //       this.#isEnd = value === this.#end;
 
-        return { value, done: false };
-      },
-    };
+  //       return { value, done: false };
+  //     },
+  //   };
+  // }
+
+  goNext() {
+    if (this.#currIdx === LINE2.length) this.#currIdx = 0;
+    const value = LINE2[this.#currIdx++];
+    this.#isEnd = value === this.#end;
+
+    return value;
+  }
+
+  *[Symbol.iterator]() {
+    while (true) {
+      if (this.#isEnd) break;
+
+      yield this.goNext();
+    }
   }
 }
 

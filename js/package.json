@@ -10,6 +10,8 @@
   "author": "SeniorCoding",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43"
   }
 }

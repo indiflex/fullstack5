@@ -17,16 +17,28 @@
 // console.log('🚀  x3:', x3);
 // return;
 
-function* gener() {
-  console.log('********');
-  const x = yield 1;
-  const y = yield x + 10;
-  console.log('x y =', x, y);
+// function* gener() {
+//   console.log('********');
+//   const x = yield 1;
+//   const y = yield x + 10;
+//   console.log('x y =', x, y);
+//   return x + y;
+// }
+// const it3 = gener();
+// console.log('🚀  it3:', it3);
+// console.log(it3.next()); // { value: 1, done: false }
+// console.log(it3.next(3)); // { value: 13, done: false }
+// // x y = 3 5
+// console.log(it3.next(5)); // { value: 8, done: true }
+
+function* add() {
+  const x = yield '첫 번째 수?';
+  const y = yield '두 번째 수?';
   return x + y;
 }
-const it3 = gener();
-console.log('🚀  it3:', it3);
-console.log(it3.next()); // { value: 1, done: false }
-console.log(it3.next(3)); // { value: 13, done: false }
-// x y = 3 5
-console.log(it3.next(5)); // { value: 8, done: true }
+
+const itAdd = add();
+console.log(itAdd.next());
+console.log(itAdd.next(10));
+const { value } = itAdd.next(20);
+console.log('Result is', value);
