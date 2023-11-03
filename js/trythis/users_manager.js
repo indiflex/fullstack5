@@ -1,4 +1,4 @@
-const assert = require('assert');
+import assert from 'assert';
 
 const hong = { id: 1, name: 'Hong' };
 const choi = { id: 5, name: 'Choi' };

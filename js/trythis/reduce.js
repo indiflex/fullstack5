@@ -1,4 +1,4 @@
-const assert = require('assert');
+import assert from 'assert';
 
 const arr = [1, 2, 3];
 

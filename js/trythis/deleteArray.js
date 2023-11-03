@@ -1,4 +1,4 @@
-const assert = require('assert');
+import assert from 'assert';
 
 // const deleteArray = (arr, ...args) => arr.slice(...args);
 const deleteArray = (arr, start, end) =>

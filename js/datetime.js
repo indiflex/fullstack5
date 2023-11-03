@@ -1,15 +1,21 @@
+import moment from 'moment';
+import 'moment/locale/ko';
+
 const d = new Date();
 console.log('🚀  d:', d);
 
-const moment = require('moment');
-require('moment/locale/ko');
+function tmpFn() {
+  const m = moment('2022-10-30');
+  // m.tz('Asiz/Korean');
+  // moment.locale('ko');
+  console.log('🚀  d2:', m, m.format('llll'));
+  console.log(m.format('YYYY-MM-DD HH:mm:ss (ddd)'));
+  console.log(m.fromNow());
+}
 
-const m = moment('2022-10-30');
-// m.tz('Asiz/Korean');
-// moment.locale('ko');
-console.log('🚀  d2:', m, m.format('llll'));
-console.log(m.format('YYYY-MM-DD HH:mm:ss (ddd)'));
-console.log(m.fromNow());
+tmpFn();
+console.log('mmmm>>', moment().format('L'));
+return;
 
 setTimeout(
   (x, y) => {
