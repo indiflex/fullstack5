@@ -1,27 +1,5 @@
-const rand = (s, e) => {
-  const ret = s + Math.floor((e - s + 1) * Math.random());
-  console.log('rand>>', ret);
-  return ret;
-};
-
-const debounce = (cb, delay) => {
-  let timer;
-  return (...args) => {
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(cb, delay, ...args);
-  };
-};
-
-const throttle = (cb, delay) => {
-  let timer;
-  return (...args) => {
-    if (timer) return;
-    timer = setTimeout(() => {
-      cb(...args);
-      timer = null;
-    }, delay);
-  };
-};
+import { rand } from '../utils/math-utils.js';
+import { debounce, throttle } from '../utils/timer-utils.js';
 
 let cnt = 0;
 const debouncer = debounce(rand, 1000);

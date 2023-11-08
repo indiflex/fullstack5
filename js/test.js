@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { Stack, Queue, ArrayList, Collection } from './utils/collection.js';
+import { Stack, Queue, ArrayList, Collection } from './utils/index.js';
 
 const v = process.env.VERSION;
 console.log('v=', v);
