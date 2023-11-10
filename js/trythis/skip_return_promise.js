@@ -11,8 +11,9 @@ promiseFn(1)
     promiseFn(res); // Need Return the Promise Object!!
   })
   .then(res => {
-    if (res === undefined) throw new Error('Not Valid!!');
     console.log('res2>>', res); // undefined
+    // if (res === undefined) throw new Error('Not Valid!!');
+    if (res === undefined) return Promise.reject('Not Valid!!');
     return promiseFn(res ?? 3);
   })
   .catch(err => console.log('Error!!>>', err));
