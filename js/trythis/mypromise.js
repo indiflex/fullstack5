@@ -52,8 +52,8 @@ const randTime = val =>
 const p = new Promise((resolve, reject) => {
   setTimeout(() => {
     const now = Date.now();
-    // if (now % 2 >= 0) resolve(now); // success
-    if (now % 2 < 0) resolve(now); // failure
+    if (now % 2 >= 0) resolve(now); // success
+    // if (now % 2 < 0) resolve(now); // failure
     else reject('어디로?');
   }, 1000);
 });
@@ -66,11 +66,12 @@ p.then(res => {
   .then(res => randTime(res + 1))
   .then(res => {
     console.log('p.then.res22>>>', res);
-    // return 'FiNALLY';
-    throw new Error('XXXXXX');
+    return 'FiNALLY';
+    // throw new Error('XXXXXX');
   })
   .then(console.log('p.then.res33!!!'))
   .then(res => res || 'TTT')
+  .then(console.log)
   .catch(err => {
     console.error('err-11>>', err);
     throw new Error('ERR-11-1');
@@ -91,7 +92,7 @@ function Promise(cb) {
   let finalFns = [];
 
   Promise.prototype.then = fn => {
-    thenFns.push(fn);
+    if (typeof fn === 'function') thenFns.push(fn);
     return this;
   };
 
