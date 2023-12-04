@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import './App.css';
 import Hello from './components/Hello';
 import My from './components/My';
@@ -11,14 +11,27 @@ export type Session = {
 };
 
 const SampleSession = {
-  // loginUser: null,
-  loginUser: { id: 1, name: 'Hong' },
+  loginUser: null,
+  // loginUser: { id: 1, name: 'Hong' },
   cart: [
     { id: 100, name: '라면', price: 3000 },
     { id: 101, name: '컵라면', price: 2000 },
     { id: 200, name: '파', price: 5000 },
   ],
 };
+
+type ChildHandler = {
+  appendPeriod: () => void;
+};
+const ChildComponent = forwardRef((_, ref) => {
+  const [childText, setChildText] = useState('.');
+
+  const handler: ChildHandler = {
+    appendPeriod: () => setChildText((c) => c + '.'),
+  };
+  useImperativeHandle(ref, () => handler);
+  return <>childComp: {childText}</>;
+});
 
 function App() {
   const [count, setCount] = useState(0);
@@ -44,8 +57,15 @@ function App() {
     });
   };
 
+  const childRef = useRef<ChildHandler>(null);
+
   return (
     <>
+      <ChildComponent ref={childRef} />
+      <hr />
+      <button onClick={() => childRef.current?.appendPeriod()}>
+        Call Child Component
+      </button>
       <Hello age={32} plusCount={plusCount} />
       <hr />
       <My
