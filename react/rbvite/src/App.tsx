@@ -2,24 +2,7 @@ import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import './App.css';
 import Hello from './components/Hello';
 import My from './components/My';
-import { LoginHandle } from './components/Login';
-
-export type LoginUser = { id: number; name: string };
-export type Cart = { id: number; name: string; price: number };
-export type Session = {
-  loginUser: LoginUser | null;
-  cart: Cart[];
-};
-
-const SampleSession = {
-  loginUser: null,
-  // loginUser: { id: 1, name: 'Hong' },
-  cart: [
-    { id: 100, name: '라면', price: 3000 },
-    { id: 101, name: '컵라면', price: 2000 },
-    { id: 200, name: '파', price: 5000 },
-  ],
-};
+import { useCounter } from './hooks/counter-context';
 
 type ChildHandler = {
   appendPeriod: () => void;
@@ -35,47 +18,8 @@ const ChildComponent = forwardRef((_, ref) => {
 });
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [session, setSession] = useState<Session>(SampleSession);
-
-  const loginHandleRef = useRef<LoginHandle>(null);
-
-  const plusCount = () => {
-    setCount((count) => count + 1);
-  };
-
-  const login = ({ id, name }: LoginUser) => {
-    if (!name) {
-      alert('Input User Name, please.');
-      loginHandleRef.current?.focusName();
-      return;
-    }
-    setSession({ ...session, loginUser: { id, name } });
-  };
-
-  const logout = () => {
-    setSession({ ...session, loginUser: null });
-  };
-
-  const saveCartItem = (name: string, price: number) => {
-    const id =
-      session.cart
-        .map((cart) => cart.id)
-        .sort()
-        .at(-1) || 0;
-
-    setSession({
-      ...session,
-      cart: [...session.cart, { id: id + 1, name, price }],
-    });
-  };
-
-  const removeCartItem = (itemId: number) => {
-    setSession({
-      ...session,
-      cart: session.cart.filter((item) => item.id !== itemId),
-    });
-  };
+  // const [count, setCount] = useState(0);
+  const { count, plusCount } = useCounter();
 
   const childRef = useRef<ChildHandler>(null);
 
@@ -89,12 +33,7 @@ function App() {
       <Hello age={32} plusCount={plusCount} />
       <hr />
       <My
-        session={session}
-        login={login}
-        logout={logout}
-        loginHandleRef={loginHandleRef}
-        saveCartItem={saveCartItem}
-        removeCartItem={removeCartItem}
+      // loginHandleRef={loginHandleRef}
       />
       <div className='card'>
         <button onClick={plusCount}>

@@ -1,27 +1,15 @@
-// src/components/My.tsx
-import { FormEvent, RefObject, useRef } from 'react';
-import { LoginUser, Session } from '../App';
-import Login, { LoginHandle } from './Login';
+import { FormEvent, useRef } from 'react';
+import Login from './Login';
 import Profile from './Profile';
+import { useSession } from '../hooks/session-context';
 
-type Props = {
-  session: Session;
-  login: ({ id, name }: LoginUser) => void;
-  logout: () => void;
-  loginHandleRef: RefObject<LoginHandle>;
-  saveCartItem: (name: string, price: number) => void;
-  removeCartItem: (itemId: number) => void;
-};
-
-const My = ({
-  session: { loginUser, cart },
-  login,
-  logout,
-  loginHandleRef,
-  saveCartItem,
-  removeCartItem,
-}: Props) => {
+const My = () => {
   console.log('@@@My');
+  const {
+    session: { loginUser, cart },
+    saveCartItem,
+    removeCartItem,
+  } = useSession();
   const itemNameRef = useRef<HTMLInputElement>(null);
   const itemPriceRef = useRef<HTMLInputElement>(null);
 
@@ -47,11 +35,7 @@ const My = ({
 
   return (
     <>
-      {loginUser ? (
-        <Profile loginUser={loginUser} logout={logout} />
-      ) : (
-        <Login login={login} ref={loginHandleRef} />
-      )}
+      {loginUser ? <Profile /> : <Login />}
       <ul>
         {cart.map(({ id, name, price }) => (
           <li key={id}>
