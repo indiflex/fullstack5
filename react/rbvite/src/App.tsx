@@ -2,6 +2,7 @@ import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import './App.css';
 import Hello from './components/Hello';
 import My from './components/My';
+import { LoginHandle } from './components/Login';
 
 export type LoginUser = { id: number; name: string };
 export type Cart = { id: number; name: string; price: number };
@@ -37,12 +38,18 @@ function App() {
   const [count, setCount] = useState(0);
   const [session, setSession] = useState<Session>(SampleSession);
 
+  const loginHandleRef = useRef<LoginHandle>(null);
+
   const plusCount = () => {
     setCount((count) => count + 1);
   };
 
   const login = ({ id, name }: LoginUser) => {
-    if (!name) return alert('Input User Name, please.');
+    if (!name) {
+      alert('Input User Name, please.');
+      loginHandleRef.current?.focusName();
+      return;
+    }
     setSession({ ...session, loginUser: { id, name } });
   };
 
@@ -85,6 +92,7 @@ function App() {
         session={session}
         login={login}
         logout={logout}
+        loginHandleRef={loginHandleRef}
         saveCartItem={saveCartItem}
         removeCartItem={removeCartItem}
       />
