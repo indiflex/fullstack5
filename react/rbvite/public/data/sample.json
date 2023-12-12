@@ -1,0 +1,8 @@
+{
+  "loginUser": null,
+  "cart": [
+    { "id": 100, "name": "라면1", "price": 3000 },
+    { "id": 101, "name": "컵라면2", "price": 2000 },
+    { "id": 102, "name": "파3", "price": 5000 }
+  ]
+}

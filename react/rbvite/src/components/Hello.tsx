@@ -10,14 +10,14 @@ type Props = {
 };
 
 const Hello = ({ name = 'CCC', age, children }: PropsWithChildren<Props>) => {
-  console.log('Hello.age>>', age);
-  const { plusCount } = useCounter();
+  // console.log('Hello.age>>', age);
+  const { count, plusCount } = useCounter();
   const helloId = useId();
 
   return (
     <div style={{ border: '2px solid red' }}>
       <h5 id={helloId}>
-        Hello, {name} ({age}세)
+        Hello, {name} ({age}세) [{count}]
       </h5>
       {children}
       <button onClick={plusCount}>+count</button>

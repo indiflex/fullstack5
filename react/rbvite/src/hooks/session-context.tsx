@@ -1,4 +1,10 @@
-import { PropsWithChildren, createContext, useContext, useState } from 'react';
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 type SessionContextProp = {
   session: Session;
@@ -23,6 +29,17 @@ const SessionContext = createContext<SessionContextProp>({
 
 export const SessionContextProvider = ({ children }: PropsWithChildren) => {
   const [session, setSession] = useState<Session>(DEFAULT_SESSION);
+
+  const url = '/data/sample-logined.json';
+  useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
+    fetch(url, { signal })
+      .then((res) => res.json())
+      .then((data) => setSession(data));
+
+    return () => controller.abort();
+  }, []);
 
   // const loginHandleRef = useRef<LoginHandle>(null);
 
