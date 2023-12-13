@@ -12,7 +12,17 @@ export const useTimer = () => {
     }, []);
   };
 
-  const useTimeout = () => {};
+  const useTimeout = <T extends unknown[]>(
+    cb: (...args: T) => void,
+    delay: number,
+    ...args: T
+  ) => {
+    useEffect(() => {
+      const timer = setTimeout(cb, delay, ...args);
+
+      return () => clearTimeout(timer);
+    }, []);
+  };
 
   return { useInterval, useTimeout };
 };

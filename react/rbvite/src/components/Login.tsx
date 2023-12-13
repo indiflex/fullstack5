@@ -19,17 +19,17 @@ const Login = forwardRef((_, handleRef) => {
   //   return 'HONG';
   // });
   const { login } = useSession();
-  const { count, plusCount, minusCount } = useCounter();
+  const { plusCount, minusCount } = useCounter();
   const idRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     plusCount();
-    console.log('Login Please...', count);
+    // console.log('Login Please...', count);
 
     return () => {
       minusCount();
-      console.log('login-cleanup-code!!', count);
+      // console.log('login-cleanup-code!!', count);
     };
   }, []);
 

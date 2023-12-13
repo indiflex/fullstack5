@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { useFetch } from './fetch-hook';
 
 type SessionContextProp = {
   session: Session;
@@ -30,16 +31,25 @@ const SessionContext = createContext<SessionContextProp>({
 export const SessionContextProvider = ({ children }: PropsWithChildren) => {
   const [session, setSession] = useState<Session>(DEFAULT_SESSION);
 
-  const url = '/data/sample-logined.json';
-  useEffect(() => {
-    const controller = new AbortController();
-    const { signal } = controller;
-    fetch(url, { signal })
-      .then((res) => res.json())
-      .then((data) => setSession(data));
+  const url = '/data/sample.json';
+  // const url = '/data/sample-logined.json';
 
-    return () => controller.abort();
-  }, []);
+  const data = useFetch<Session>(url);
+  useEffect(() => {
+    if (data) setSession(data);
+  }, [data]);
+
+  // setSession(data || DEFAULT_SESSION);
+
+  // useEffect(() => {
+  //   const controller = new AbortController();
+  //   const { signal } = controller;
+  //   fetch(url, { signal })
+  //     .then((res) => res.json())
+  //     .then((data) => setSession(data));
+
+  //   return () => controller.abort();
+  // }, []);
 
   // const loginHandleRef = useRef<LoginHandle>(null);
 
