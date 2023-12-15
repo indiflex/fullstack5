@@ -11,6 +11,7 @@ import My from './components/My';
 import { useCounter } from './hooks/counter-context';
 import { useTimer } from './hooks/timer-hooks';
 import { MemoHello } from './components/Hello';
+import { SessionContextProvider } from './hooks/session-context';
 
 type ChildHandler = {
   appendPeriod: () => void;
@@ -77,7 +78,7 @@ function App() {
   const age = useMemo(() => count + 1, []);
 
   return (
-    <>
+    <SessionContextProvider>
       <ChildComponent ref={childRef} />
       <hr />
       <button onClick={() => childRef.current?.appendPeriod()}>
@@ -96,7 +97,7 @@ function App() {
         {count}
         <button onClick={minusCount}>Minus</button>
       </div>
-    </>
+    </SessionContextProvider>
   );
 }
 

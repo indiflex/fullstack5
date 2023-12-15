@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useFetch } from '../hooks/fetch-hook';
 import { useSession } from '../hooks/session-context';
 
 const Profile = () => {
@@ -9,11 +7,11 @@ const Profile = () => {
     session: { loginUser },
   } = useSession();
 
-  const url = '/data/sample.json';
-  const data = useFetch<Session>(url);
-  useEffect(() => {
-    if (data) console.log('🚀  data:', data);
-  }, [data]);
+  // const url = '/data/sample.json';
+  // const data = useFetch<Session>(url);
+  // useEffect(() => {
+  //   if (data) console.log('🚀  data:', data);
+  // }, [data]);
 
   return (
     <>
