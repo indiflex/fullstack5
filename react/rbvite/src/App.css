@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.bold {
+  font-weight: 700;
+}
+.red {
+  color: red;
+}

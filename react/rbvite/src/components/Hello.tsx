@@ -1,4 +1,5 @@
-import { memo, useId, useReducer } from 'react';
+import { memo, useEffect, useId, useReducer } from 'react';
+import styles from './Hello.module.css';
 
 type Props = {
   // name?: string;
@@ -18,13 +19,15 @@ export const Hello = ({ age, fn }: Props) => {
   // const [isActive, setActive] = useState(false);
   const [isActive, toggleActive] = useReducer((preActive) => !preActive, false);
 
-  // useEffect(() => {
-  //   console.log('child.fn>>>', age, fn());
-  // }, [age, fn]);
+  useEffect(() => {
+    // console.log('child.fn>>>', age, fn());
+  }, [age, fn]);
 
   return (
-    <div style={{ border: '2px solid red' }}>
-      <h5 id={helloId}>Hello, {age}</h5>
+    <div className={styles['hello-border']}>
+      <h5 id={helloId} className='title'>
+        Hello, {age}
+      </h5>
       {/* <button onClick={plusCount}>+count</button> */}
       <hr />
       {isActive ? 'Active' : 'Passive'}

@@ -12,6 +12,8 @@ import { useCounter } from './hooks/counter-context';
 import { useTimer } from './hooks/timer-hooks';
 import { MemoHello } from './components/Hello';
 import { SessionContextProvider } from './hooks/session-context';
+import * as CN from 'classnames';
+import clsx from 'clsx';
 
 type ChildHandler = {
   appendPeriod: () => void;
@@ -77,6 +79,7 @@ function App() {
   // const age = count + 1;
   const age = useMemo(() => count + 1, []);
 
+  const rrr = () => ['bold', 'red'];
   return (
     <SessionContextProvider>
       <ChildComponent ref={childRef} />
@@ -90,11 +93,14 @@ function App() {
       <My
       // loginHandleRef={loginHandleRef}
       />
-      <div className='card'>
+      {/* <div className={count % 2 === 0 ? 'card' : ''}> */}
+      <div className={CN({ card: count % 2 === 0 })}>
         <button onClick={plusCount}>
           count is {count > 0 ? 'Big' : 'Zero'}
         </button>
-        {count}
+        <span className={clsx('card', { bold: count > 1 }, rrr())}>
+          {count}
+        </span>
         <button onClick={minusCount}>Minus</button>
       </div>
     </SessionContextProvider>

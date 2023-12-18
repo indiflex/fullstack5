@@ -85,7 +85,7 @@ const reducer = (session: Session, action: Action) => {
       break;
   }
 
-  setStorage(newer as Session);
+  setStorage(newer);
   return newer;
 };
 
@@ -136,7 +136,7 @@ export const SessionContextProvider = ({ children }: PropsWithChildren) => {
       // });
       dispatch({ type: ActionType.SAVE_ITEM, payload: cart });
     },
-    []
+    [session]
   );
 
   const removeCartItem = useCallback((itemId: number) => {

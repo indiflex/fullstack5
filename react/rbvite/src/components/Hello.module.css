@@ -1,0 +1,8 @@
+.title {
+  color: red;
+  font-weight: 700;
+}
+
+.hello-border {
+  border: 2px solid red;
+}
