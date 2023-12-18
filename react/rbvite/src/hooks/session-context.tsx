@@ -91,6 +91,7 @@ const reducer = (session: Session, action: Action) => {
 
 export const SessionContextProvider = ({ children }: PropsWithChildren) => {
   const storedData = getStorage();
+
   const [session, dispatch] = useReducer(
     reducer,
     storedData || DEFAULT_SESSION
@@ -115,12 +116,14 @@ export const SessionContextProvider = ({ children }: PropsWithChildren) => {
 
   const logout = useCallback(() => {
     // setSession({ ...session, loginUser: null });
-    dispatch({ type: ActionType.LOGOUT, payload: null });
-  }, []);
+    console.log('sssssssssss>>', session);
+    if (session.loginUser) dispatch({ type: ActionType.LOGOUT, payload: null });
+  }, [session]);
 
   const saveCartItem = useCallback(
     (id: number, name: string, price: number) => {
       const { cart } = session;
+      console.log('🚀  cart:', cart);
       const item = id && cart.find((item) => item.id === id);
       if (item) {
         item.name = name;

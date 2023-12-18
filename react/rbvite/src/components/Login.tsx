@@ -31,7 +31,13 @@ const Login = forwardRef((_, handleRef) => {
       minusCount();
       // console.log('login-cleanup-code!!', count);
     };
-  }, []);
+  }, [plusCount, minusCount]);
+
+  // const url = '/data/sample.json';
+  // const data = useFetch<Session>(url);
+  // useEffect(() => {
+  //   if (data) console.log('🚀  data22:', data);
+  // }, [data]);
 
   // const setUserId = (e: ChangeEvent<HTMLInputElement>) => {
   //   setId(+e.currentTarget.value);
