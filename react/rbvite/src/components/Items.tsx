@@ -1,12 +1,10 @@
 import { FormEvent, useRef, useState } from 'react';
 import { useSession } from '../hooks/session-context';
-import { Link } from 'react-router-dom';
 
 export const Items = () => {
   const {
     session: { cart },
     saveCartItem,
-    removeCartItem,
   } = useSession();
 
   const itemIdRef = useRef<number>(0);
@@ -29,17 +27,17 @@ export const Items = () => {
     setDirty(name !== selectedItem.name || price != selectedItem.price);
   };
 
-  const setCartItem = (id: number) => {
-    itemIdRef.current = id;
-    const selectedItem = cart.find((item) => item.id === id) || {
-      name: '',
-      price: 0,
-    };
-    if (itemNameRef.current && itemPriceRef.current) {
-      itemNameRef.current.value = selectedItem?.name;
-      itemPriceRef.current.value = selectedItem?.price.toString();
-    }
-  };
+  // const setCartItem = (id: number) => {
+  //   itemIdRef.current = id;
+  //   const selectedItem = cart.find((item) => item.id === id) || {
+  //     name: '',
+  //     price: 0,
+  //   };
+  //   if (itemNameRef.current && itemPriceRef.current) {
+  //     itemNameRef.current.value = selectedItem?.name;
+  //     itemPriceRef.current.value = selectedItem?.price.toString();
+  //   }
+  // };
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
