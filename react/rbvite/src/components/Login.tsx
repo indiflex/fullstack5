@@ -7,6 +7,7 @@ import {
 } from 'react';
 import { useSession } from '../hooks/session-context';
 import { useCounter } from '../hooks/counter-context';
+import { useNavigate } from 'react-router-dom';
 
 export type LoginHandle = {
   focusName: () => void;
@@ -18,8 +19,17 @@ const Login = forwardRef((_, handleRef) => {
   //   console.log('init name!!!');
   //   return 'HONG';
   // });
-  const { login } = useSession();
+  const {
+    login,
+    session: { loginUser },
+  } = useSession();
   const { plusCount, minusCount } = useCounter();
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (loginUser) navigate('/my');
+  }, [loginUser, navigate]);
+
   const idRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
 

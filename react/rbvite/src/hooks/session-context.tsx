@@ -116,7 +116,7 @@ export const SessionContextProvider = ({ children }: PropsWithChildren) => {
 
   const logout = useCallback(() => {
     // setSession({ ...session, loginUser: null });
-    console.log('sssssssssss>>', session);
+    // console.log('sssssssssss>>', session);
     if (session.loginUser) dispatch({ type: ActionType.LOGOUT, payload: null });
   }, [session]);
 
