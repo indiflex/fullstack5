@@ -17,19 +17,27 @@ export const ItemLayout = () => {
   // const [searchStr, setSearchStr] = useState('');
   const [searchParams, setSearchParams] = useSearchParams({
     searchStr: '',
+    itemId: '',
   });
   // console.log('🚀  searchParams:', searchParams);
   const searchStr = searchParams.get('searchStr') || '';
+  const itemId = searchParams.get('itemId') || '';
 
   useEffect(() => {
     if (searchStr)
-      setItems(cart.filter((item) => item.name.includes(searchStr)));
-    else setItems(cart);
+      setItems(
+        cart
+          .filter((item) => item.name.includes(searchStr))
+          .sort((a, b) => b.id - a.id)
+      );
+    else setItems(cart.sort((a, b) => b.id - a.id));
   }, [cart, searchStr]);
 
   useEffect(() => {
-    setCurrItem(items[0]);
-  }, [items]);
+    if (itemId)
+      setCurrItem(cart.find((item) => item.id === Number(itemId)) || null);
+    else setCurrItem(items[0]);
+  }, [cart, items, itemId]);
 
   return (
     <>
@@ -37,7 +45,9 @@ export const ItemLayout = () => {
       <input
         type='text'
         value={searchParams.get('searchStr') || ''}
-        onChange={(e) => setSearchParams({ searchStr: e.currentTarget.value })}
+        onChange={(e) =>
+          setSearchParams({ searchStr: e.currentTarget.value, itemId })
+        }
       />
       {/* <div style={{ display: 'flex', justifyContent: 'space-around' }}> */}
       <div
@@ -57,7 +67,12 @@ export const ItemLayout = () => {
                 className={clsx({ active: item.id === currItem?.id })}
               >
                 <small>{item.id}</small>
-                <button onClick={() => setCurrItem(item)}>
+                <button
+                  onClick={() => {
+                    setCurrItem(item);
+                    setSearchParams({ searchStr, itemId: String(item.id) });
+                  }}
+                >
                   <strong>{item.name}</strong>
                 </button>
                 <small>({item.price.toLocaleString()}원)</small>
@@ -66,7 +81,10 @@ export const ItemLayout = () => {
             ))}
           </ul>
           <button
-            onClick={() => setCurrItem({ id: 0, name: '', price: 0 })}
+            onClick={() => {
+              setCurrItem({ id: 0, name: '', price: 1000 });
+              setSearchParams({ searchStr });
+            }}
             style={{ backgroundColor: 'aqua' }}
           >
             + Add Item

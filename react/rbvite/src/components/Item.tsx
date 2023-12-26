@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useRef } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useSearchParams } from 'react-router-dom';
 // import { useSession } from '../hooks/session-context';
 
 export const Item = () => {
@@ -20,6 +20,11 @@ export const Item = () => {
     false
   );
 
+  const [, setSearchParams] = useSearchParams({
+    searchStr: '',
+    itemId: '',
+  });
+
   const nameRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
 
@@ -39,6 +44,9 @@ export const Item = () => {
           nameRef.current.value,
           +priceRef.current.value
         );
+
+        // setSearchParams({ itemId: String(itemId) });
+        setSearchParams({ searchStr: nameRef.current.value });
       }
 
     toggleEditing();
@@ -48,8 +56,13 @@ export const Item = () => {
     if (nameRef.current && priceRef.current) {
       nameRef.current.value = item.name;
       priceRef.current.value = String(item.price);
+      nameRef.current.select();
     }
   }, [item, isEditing]);
+
+  useEffect(() => {
+    if (item?.id === 0) toggleEditing();
+  }, [item?.id]);
 
   return (
     <>
@@ -57,8 +70,8 @@ export const Item = () => {
 
       {isEditing ? (
         <form style={{ margin: '1rem' }}>
-          <input type='text' ref={nameRef} />
-          <input type='text' ref={priceRef} />
+          <input type='text' ref={nameRef} placeholder='아이템 명...' />
+          <input type='text' ref={priceRef} placeholder='가격...' />
         </form>
       ) : (
         <div>

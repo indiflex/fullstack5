@@ -25,7 +25,7 @@ const SessionContext = createContext<SessionContextProp>({
   session: DEFAULT_SESSION,
   login: () => {},
   logout: () => {},
-  saveCartItem: () => {},
+  saveCartItem: () => 0,
   removeCartItem: () => {},
 });
 
@@ -138,6 +138,7 @@ export const SessionContextProvider = ({ children }: PropsWithChildren) => {
       //   cart: [...cart],
       // });
       dispatch({ type: ActionType.SAVE_ITEM, payload: cart });
+      return id;
     },
     [session]
   );
