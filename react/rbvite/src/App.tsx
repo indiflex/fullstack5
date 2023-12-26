@@ -9,7 +9,6 @@ import { useCallback, useMemo } from 'react';
 import { useCounter } from './hooks/counter-context';
 import My from './components/My';
 import Login from './components/Login';
-import { Items } from './components/Items';
 import { Item } from './components/Item';
 import { ItemLayout } from './components/ItemLayout';
 
@@ -31,8 +30,7 @@ function App() {
         {/* <Route path='/items' element={<Items />} />
         <Route path='/items/:id' element={<Item />} /> */}
         <Route path='/items' element={<ItemLayout />}>
-          <Route index element={<Items />} />
-          <Route path=':id' element={<Item />} />
+          <Route index element={<Item />} />
         </Route>
         <Route path='/hello' element={<MemoHello age={age} fn={fn} />} />
         <Route path='*' element={<NotFound />} />

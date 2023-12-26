@@ -12,8 +12,8 @@ type SessionContextProp = {
   session: Session;
   login: ({ id, name }: LoginUser) => void;
   logout: () => void;
-  saveCartItem: (id: number, name: string, price: number) => void;
-  removeCartItem: (id: number) => void;
+  saveCartItem: SaveCartItem;
+  removeCartItem: NumberVoidFn;
 };
 
 const DEFAULT_SESSION: Session = {

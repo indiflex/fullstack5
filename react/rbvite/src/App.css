@@ -62,3 +62,11 @@ nav ul {
 nav a.active {
   color: red;
 }
+
+.no-list {
+  list-style: none;
+}
+
+li.active {
+  border: 2px solid green;
+}
