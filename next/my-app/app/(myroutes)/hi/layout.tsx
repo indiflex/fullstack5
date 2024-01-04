@@ -7,7 +7,7 @@ export default function HiLayout({ children }: { children: React.ReactNode }) {
     <div className='grid grid-cols-3 gap-3'>
       <ul className='text-right'>
         <li key='hello' className='text-blue-600 font-bold'>
-          <Link href={`/hi`}>Hi</Link>
+          <Link href={`/hi`}>Hi~</Link>
         </li>
         {times.map((time) => (
           <li key={time} className='text-blue-600'>
