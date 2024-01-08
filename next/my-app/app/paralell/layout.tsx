@@ -9,12 +9,16 @@ export default function ParalellLayout({
   login: ReactNode;
   profile: ReactNode;
 }) {
-  return (
+  const didLogin = false;
+
+  return didLogin ? (
     <div>
       <div>{children}</div>
       <hr />
       <div>{login}</div>
       <div>{profile}</div>
     </div>
+  ) : (
+    login
   );
 }
