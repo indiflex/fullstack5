@@ -1,6 +1,5 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
+import SlugDetector from '@/app/ui/SlugDetector';
+import Link from 'next/link';
 
 export type Post = {
   userId: number;
@@ -10,29 +9,29 @@ export type Post = {
 };
 
 // export const dynamicParams = true;
-// export async function generateStaticParams() {
-//   const res = await fetch(
-//     'https://jsonplaceholder.typicode.com/posts?userId=1'
-//   );
-//   const posts = await res.json();
-//   return posts.map((post: Post) => ({
-//     slug: [`${post.id}`, 'dfu', 'dfd'],
-//   }));
-// }
+export async function generateStaticParams() {
+  const res = await fetch(
+    'https://jsonplaceholder.typicode.com/posts?userId=1'
+  );
+  const posts = await res.json();
+  return posts.map((post: Post) => ({
+    slug: [`${post.id}`, 'dfu', 'dfd'],
+  }));
+}
 
 export default function Slug({ params }: { params: { slug: string[] } }) {
-  const router = useRouter();
-
   const { slug } = params;
-  console.log('🚀  slug:', slug);
-  if (!slug?.length) {
-    console.log('***************');
-    router.push('/shop/000');
-    return;
-  }
+  const isValid = !!slug?.length;
   return (
     <div>
-      SlugPage: <strong>{slug.join()}</strong>
+      {isValid ? (
+        <div>
+          SlugPage: <strong>{slug?.join()}</strong>
+          <Link href='/shop'>Slug</Link>
+        </div>
+      ) : (
+        <SlugDetector slug={slug} />
+      )}
     </div>
   );
 }
