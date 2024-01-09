@@ -2,10 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+:root {
+  --primary: #3a86ff;
+  --warning: #ffb703;
+}
+
+/* body {
   color: rgb(var(--foreground-rgb));
   margin: 1rem 2rem;
-}
+} */
 
 .btn {
   @apply rounded-full bg-blue-200 px-3 hover:bg-blue-500 hover:text-white;
