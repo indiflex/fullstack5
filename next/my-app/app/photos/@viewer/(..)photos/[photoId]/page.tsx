@@ -13,7 +13,7 @@ export default async function PhotoInterceptor({
   if (!photo) return notFound;
 
   return (
-    <Modal>
+    <Modal className='text-primary'>
       <div className='w-full'>
         <Image
           src={photo.url}
